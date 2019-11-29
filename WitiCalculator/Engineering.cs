@@ -19,10 +19,11 @@ namespace WitiCalculator
             WITI_LSH_gv_processLabel.Text = null;
         }
 
-        public enum Operators { NULL = 0, PLUS, MINUS, MULTI, DIVISION, ETC, XsquareY}
+        public enum Operators { NULL = 0, PLUS, MINUS, MULTI, DIVISION, ETC, XsquareY, Exp }
         private String WITI_LSH_gv_Num = "";
         private String WITI_LSH_gv_Num2 = "0";                  //Exp를 계산하기 위해 만든 변수
-        private string WITI_LSH_gv_Num3 = "";
+        private string WITI_LSH_gv_Num3 = "1";
+        private string WITI_LSH_gv_Num4 = "0";
         private String WITI_LSH_gv_processNum = "";             // processLabel에 띄워줄 연산과정을 저장
         private bool WITI_LSH_gv_isOperater = true;             // true이면 연산자들을 누르기 전 false이면 한번 누른상태
         private bool WITI_LSH_gv_isNumber = true;               // true이면 숫자들을 누르기 전 false이면 한번이상 누른상태
@@ -122,14 +123,17 @@ namespace WitiCalculator
                     WITI_LSH_gv_resultLabel.Text = WITI_KSM_Api.WITI_KSM_Tan(WITI_LSH_gv_resultLabel.Text);
                     break;
                 case "WITI_LSH_gv_ExpButton":               //Exp
-                    WITI_LSH_gv_Num = WITI_LSH_gv_resultLabel.Text;
-                    WITI_LSH_gv_resultLabel.Text = WITI_LSH_gv_Num + ".e + "+ WITI_LSH_gv_Num2;
+
+                    WITI_LSH_gv_Operator = Operators.Exp;
+                    /*WITI_LSH_gv_resultLabel.Text = +".e" + "+";*/
+                    OperatorMethod(WITI_LSH_Iv_selectButton.Text);
+                    WITI_LSH_gv_previousOperator = Operators.Exp;
                     WITI_LSH_gv_isExp = false;
                     break;
                 case "WITI_LSH_gv_XsquareYButton":
-                    WITI_LSH_gv_Num3 = WITI_LSH_gv_resultLabel.Text;
-                    WITI_LSH_gv_processLabel.Text = WITI_LSH_gv_Num3 + "^";
-                    WITI_LSH_gv_resultLabel.Text = "";
+                    WITI_LSH_gv_Operator = Operators.XsquareY;
+                    OperatorMethod(WITI_LSH_Iv_selectButton.Text);
+                    WITI_LSH_gv_previousOperator = Operators.XsquareY;
                     WITI_LSH_gv_isXsquareY = false;
                     break;
                 case "WITI_LSH_gv_10squareButton":          //10square
@@ -147,9 +151,9 @@ namespace WitiCalculator
                 //case "WITI_LSH_gv_ModButton":               //Mod
                 //    SetNum(WITI_LSH_Iv_selectButton.Text);
                 //    break;
-                
+
                 case "WITI_LSH_gv_piButton":                //pi
-                    
+
                     WITI_LSH_gv_isOperater = false;
                     WITI_LSH_gv_resultLabel.Text = WITI_KSM_Api.getPI();
                     WITI_LSH_gv_isNumber = false;
@@ -157,14 +161,14 @@ namespace WitiCalculator
                 case "WITI_LSH_gv_2ndButton":               //2nd
                     SetNum(WITI_LSH_Iv_selectButton.Text);
                     break;
-               case "WITI_LSH_gv_rootButton":              //root
+                case "WITI_LSH_gv_rootButton":              //root
                     WITI_LSH_gv_resultLabel.Text = WITI_KSM_Api.WITI_KSM_Sqrt(WITI_LSH_gv_resultLabel.Text);
                     break;
                 case "WITI_LSH_gv_SquareButton":           //square
                     WITI_LSH_gv_Num = WITI_LSH_gv_resultLabel.Text = WITI_KSM_StandardCalculation.WITI_KSM_SquareMethod(WITI_LSH_gv_resultLabel.Text);
                     break;
                 case "WITI_LSH_gv_factorialButton":
-                    WITI_LSH_gv_processLabel.Text +="fact("+WITI_LSH_gv_resultLabel.Text+")";
+                    WITI_LSH_gv_processLabel.Text += "fact(" + WITI_LSH_gv_resultLabel.Text + ")";
                     WITI_LSH_gv_resultLabel.Text = WITI_KSM_Api.WITI_KSM_Fact(WITI_LSH_gv_resultLabel.Text);
                     break;
             }
@@ -174,20 +178,6 @@ namespace WitiCalculator
 
             WITI_LSH_gv_isNumber = false;
 
-          /*  if (WITI_LSH_gv_isExp == false)
-            {
-                if(WITI_LSH_gv_Num2 == "0")
-                {
-                    WITI_LSH_gv_Num2 = WITI_LSH_Iv_numberText;
-                    WITI_LSH_gv_resultLabel.Text = WITI_LSH_gv_Num + ".e + " + WITI_LSH_gv_Num2;
-                    return;
-                }
-                WITI_LSH_gv_Num2 += WITI_LSH_Iv_numberText;
-                WITI_LSH_gv_resultLabel.Text = WITI_LSH_gv_Num + ".e + " + WITI_LSH_gv_Num2;
-
-                return;
-            }*/
-
             if (WITI_LSH_gv_isEqual == false)
             {
                 WITI_LSH_gv_resultLabel.Text = "";
@@ -195,15 +185,15 @@ namespace WitiCalculator
                 WITI_LSH_gv_isEqual = true;
             }
 
-            if(WITI_LSH_gv_isOperater == false)
+            if (WITI_LSH_gv_isOperater == false)
             {
                 WITI_LSH_gv_resultLabel.Text = "";
                 WITI_LSH_gv_isOperater = true;
             }
 
-            if(WITI_LSH_gv_resultLabel.Text == "0")
+            if (WITI_LSH_gv_resultLabel.Text == "0")
             {
-                if(WITI_LSH_gv_resultLabel.Text == "0" && WITI_LSH_Iv_numberText == ".")
+                if (WITI_LSH_gv_resultLabel.Text == "0" && WITI_LSH_Iv_numberText == ".")
                 {
                     WITI_LSH_gv_resultLabel.Text = "0.";
                 }
@@ -224,21 +214,8 @@ namespace WitiCalculator
                 }
             }
         }
-
         private void OperatorMethod(string WITI_LSH_Iv_numberText)
         {
-            if(WITI_LSH_gv_isXsquareY == false)
-            {
-                WITI_LSH_gv_Num = WITI_LSH_gv_resultLabel.Text = 
-                    (Convert.ToString(Math.Pow(Convert.ToDouble(WITI_LSH_gv_Num3), Convert.ToDouble(WITI_LSH_gv_resultLabel.Text))));
-                WITI_LSH_gv_isXsquareY = true;
-                WITI_LSH_gv_isOperater = false;
-                WITI_LSH_gv_processNum = WITI_LSH_gv_processLabel.Text = "";
-                WITI_LSH_gv_isEqual = true;
-                WITI_LSH_gv_isNumber = true;
-                return;
-            }
-
             if (WITI_LSH_gv_isEqual == false)
             {
                 WITI_LSH_gv_isEqual = true;
@@ -247,6 +224,7 @@ namespace WitiCalculator
             if (WITI_LSH_gv_isNumber == true)
             {
                 WITI_LSH_gv_processLabel.Text = WITI_LSH_gv_resultLabel.Text + " " + WITI_LSH_Iv_numberText + " ";
+
                 return;
             }
             else
@@ -283,12 +261,16 @@ namespace WitiCalculator
                         WITI_LSH_gv_Num = WITI_LSH_gv_resultLabel.Text;
                         WITI_LSH_gv_isOperater = false;
                         break;
-/*                    case "^":
+                    case "^":
                         WITI_LSH_gv_processNum += WITI_LSH_gv_resultLabel.Text + " ^ ";
-                        WITI_LSH_AdditionalOperation(WITI_LSH_Iv_numberText);
                         WITI_LSH_gv_Num3 = WITI_LSH_gv_resultLabel.Text;
                         WITI_LSH_gv_isOperater = false;
-                        break;*/
+                        break;
+                    case "Exp":
+                        WITI_LSH_gv_processNum += WITI_LSH_gv_resultLabel.Text + ".e" + "+";
+                        WITI_LSH_gv_Num3 = WITI_LSH_gv_resultLabel.Text;
+                        WITI_LSH_gv_isOperater = false;
+                        break;
                     case "=":
                         WITI_LSH_EqualMethod();
                         break;
@@ -296,21 +278,11 @@ namespace WitiCalculator
             }
             WITI_LSH_gv_isNumber = true;
             WITI_LSH_gv_processLabel.Text = WITI_LSH_gv_processNum;
-
-/*            if (WITI_LSH_gv_isXsquareY == false)
-            {
-                double result = Math.Pow(WITI_KSM_Api.WITI_KSM_Convert_ToDouble(WITI_LSH_gv_Num), WITI_KSM_Api.WITI_KSM_Convert_ToDouble(WITI_LSH_gv_Num3));
-                WITI_LSH_gv_resultLabel.Text = WITI_KSM_Api.WITI_KSM_Convert_ToString(result);
-                WITI_LSH_gv_Num = WITI_LSH_gv_resultLabel.Text;
-                WITI_LSH_gv_Num3 = "";
-                WITI_LSH_gv_isXsquareY = true;
-            }*/
-
         }
 
         private void WITI_LSH_EqualMethod()
         {
-            switch (WITI_LSH_gv_Operator)
+            switch (WITI_LSH_gv_Operator) // 무슨연산자가 클릭 되었는지를 확인하는 변수
             {
                 case Operators.PLUS:
                     WITI_LSH_gv_resultLabel.Text =
@@ -332,8 +304,29 @@ namespace WitiCalculator
                     WITI_LSH_gv_resultLabel.Text =
                         WITI_KSM_StandardCalculation.WITI_KSM_EtcMethod(WITI_LSH_gv_Num, WITI_LSH_gv_resultLabel.Text);
                     break;
+                case Operators.XsquareY:
+                    if (WITI_LSH_gv_Num == "")
+                    {
+                        WITI_LSH_gv_resultLabel.Text = WITI_LSH_EngineeringCalculation.WITI_LSH_XsquareYMethod(WITI_LSH_gv_Num3, WITI_LSH_gv_resultLabel.Text);
+                    }
+                    else
+                    {
+                        WITI_LSH_gv_resultLabel.Text =
+                             WITI_KSM_Api.WITI_KSM_Convert_ToString(WITI_KSM_Api.WITI_KSM_Convert_ToDouble(WITI_LSH_gv_Num) + WITI_KSM_Api.WITI_KSM_Convert_ToDouble(WITI_LSH_EngineeringCalculation.WITI_LSH_XsquareYMethod(WITI_LSH_gv_Num3, WITI_LSH_gv_resultLabel.Text)));
+                    }
+                    break;
+                case Operators.Exp:
+                    if (WITI_LSH_gv_Num == "")
+                    {
+                        WITI_LSH_gv_resultLabel.Text = WITI_LSH_EngineeringCalculation.WITI_LSH_ExpMethod(WITI_LSH_gv_Num3, WITI_LSH_gv_resultLabel.Text);
+                    }
+                    else
+                    {
+                        WITI_LSH_gv_resultLabel.Text =
+                             WITI_KSM_Api.WITI_KSM_Convert_ToString(WITI_KSM_Api.WITI_KSM_Convert_ToDouble(WITI_LSH_gv_Num) + WITI_KSM_Api.WITI_KSM_Convert_ToDouble(WITI_LSH_EngineeringCalculation.WITI_LSH_ExpMethod(WITI_LSH_gv_Num3, WITI_LSH_gv_resultLabel.Text)));
+                    }
+                    break;
             }
-
             WITI_LSH_gv_isOperater = false;
             WITI_LSH_gv_Num = WITI_LSH_gv_resultLabel.Text;
             WITI_LSH_gv_processNum = "";
@@ -343,7 +336,17 @@ namespace WitiCalculator
 
         private void WITI_LSH_AdditionalOperation(string WITI_LSH_Iv_numberText)
         {
-            if (WITI_LSH_gv_previousOperator == Operators.NULL)
+            if (WITI_LSH_gv_isXsquareY == false)
+            {
+                WITI_LSH_gv_Num4 = WITI_LSH_gv_resultLabel.Text;
+                WITI_LSH_gv_Num = WITI_LSH_gv_resultLabel.Text = WITI_LSH_EngineeringCalculation.WITI_LSH_XsquareYMethod(WITI_LSH_gv_Num3, WITI_LSH_gv_Num4);
+            }
+            if (WITI_LSH_gv_isExp == false)
+            {
+                WITI_LSH_gv_Num4 = WITI_LSH_gv_resultLabel.Text;
+                WITI_LSH_gv_Num = WITI_LSH_gv_resultLabel.Text = WITI_LSH_EngineeringCalculation.WITI_LSH_ExpMethod(WITI_LSH_gv_Num3, WITI_LSH_gv_Num4);
+            }
+            if (WITI_LSH_gv_previousOperator == Operators.NULL)               // 이전에 무슨연산자가 클릭 되었는지를 확인하는 변수
             {
                 switch (WITI_LSH_Iv_numberText)
                 {
@@ -396,7 +399,7 @@ namespace WitiCalculator
                             WITI_KSM_StandardCalculation.WITI_KSM_EtcMethod(WITI_LSH_gv_Num, WITI_LSH_gv_resultLabel.Text);
                         break;
                 }
-            } 
+            }
         }
 
         private void WITI_LSH_Reset()
@@ -412,7 +415,7 @@ namespace WitiCalculator
             WITI_LSH_gv_isEqual = true;
         }
 
-        private void WITI_KSM_ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void WITI_LSH_ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
             Standard standardView = new Standard();

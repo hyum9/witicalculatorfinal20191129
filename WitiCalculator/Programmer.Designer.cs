@@ -81,7 +81,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.Witi_Y_gv_labelNumber = new System.Windows.Forms.Label();
             this.Witi_Y_gv_labelExpression = new System.Windows.Forms.Label();
-            this.Debug = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.WITI_LSH_StandardMenuButton = new System.Windows.Forms.ToolStripMenuItem();
             this.WITI_LSH_EngineeringMenuButton = new System.Windows.Forms.ToolStripMenuItem();
@@ -241,6 +240,7 @@
             this.button1.TabIndex = 25;
             this.button1.Text = "Lsh";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Witi_Y_eventOperatorButton_Click);
             // 
             // button2
             // 
@@ -250,6 +250,7 @@
             this.button2.TabIndex = 26;
             this.button2.Text = "Rsh";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Witi_Y_eventOperatorButton_Click);
             // 
             // button3
             // 
@@ -259,6 +260,7 @@
             this.button3.TabIndex = 27;
             this.button3.Text = "Or";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Witi_Y_eventOperatorButton_Click);
             // 
             // button4
             // 
@@ -268,15 +270,18 @@
             this.button4.TabIndex = 28;
             this.button4.Text = "Xor";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.Witi_Y_eventOperatorButton_Click);
             // 
             // button5
             // 
+            this.button5.Enabled = false;
             this.button5.Location = new System.Drawing.Point(396, 10);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(90, 60);
             this.button5.TabIndex = 29;
             this.button5.Text = "Not";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.Witi_Y_eventOperatorButton_Click);
             // 
             // button6
             // 
@@ -286,6 +291,7 @@
             this.button6.TabIndex = 30;
             this.button6.Text = "And";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.Witi_Y_eventOperatorButton_Click);
             // 
             // button7
             // 
@@ -305,6 +311,7 @@
             this.button8.TabIndex = 35;
             this.button8.Text = "<-";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.Witi_Y_eventBackButton_Click);
             // 
             // button9
             // 
@@ -314,6 +321,7 @@
             this.button9.TabIndex = 34;
             this.button9.Text = "C";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.Witi_Y_eventClearButton_Click);
             // 
             // button10
             // 
@@ -323,6 +331,7 @@
             this.button10.TabIndex = 33;
             this.button10.Text = "CE";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.Witi_Y_eventClearButton_Click);
             // 
             // button11
             // 
@@ -332,6 +341,7 @@
             this.button11.TabIndex = 32;
             this.button11.Text = "Mod";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.Witi_Y_eventOperatorButton_Click);
             // 
             // button12
             // 
@@ -540,6 +550,7 @@
             // 
             // button32
             // 
+            this.button32.Enabled = false;
             this.button32.Location = new System.Drawing.Point(396, 340);
             this.button32.Name = "button32";
             this.button32.Size = new System.Drawing.Size(90, 60);
@@ -559,6 +570,7 @@
             // 
             // button34
             // 
+            this.button34.Enabled = false;
             this.button34.Location = new System.Drawing.Point(204, 340);
             this.button34.Name = "button34";
             this.button34.Size = new System.Drawing.Size(90, 60);
@@ -568,6 +580,7 @@
             // 
             // button35
             // 
+            this.button35.Enabled = false;
             this.button35.Location = new System.Drawing.Point(108, 340);
             this.button35.Name = "button35";
             this.button35.Size = new System.Drawing.Size(90, 60);
@@ -577,6 +590,7 @@
             // 
             // button36
             // 
+            this.button36.Enabled = false;
             this.button36.Location = new System.Drawing.Point(12, 340);
             this.button36.Name = "button36";
             this.button36.Size = new System.Drawing.Size(91, 60);
@@ -646,16 +660,6 @@
             this.Witi_Y_gv_labelExpression.TabIndex = 63;
             this.Witi_Y_gv_labelExpression.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // Debug
-            // 
-            this.Debug.AutoSize = true;
-            this.Debug.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Debug.Location = new System.Drawing.Point(530, 222);
-            this.Debug.Name = "Debug";
-            this.Debug.Size = new System.Drawing.Size(49, 15);
-            this.Debug.TabIndex = 64;
-            this.Debug.Text = "Debug";
-            // 
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -694,7 +698,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(587, 722);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.Debug);
             this.Controls.Add(this.Witi_Y_gv_labelExpression);
             this.Controls.Add(this.Witi_Y_gv_labelNumber);
             this.Controls.Add(this.panel1);
@@ -767,7 +770,6 @@
         private System.Windows.Forms.Label Witi_Y_gv_colorLabelBIN;
         private System.Windows.Forms.Label Witi_Y_gv_colorLabelOCT;
         private System.Windows.Forms.Label Witi_Y_gv_labelExpression;
-        private System.Windows.Forms.Label Debug;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem WITI_LSH_StandardMenuButton;
         private System.Windows.Forms.ToolStripMenuItem WITI_LSH_EngineeringMenuButton;

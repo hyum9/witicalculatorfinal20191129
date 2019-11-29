@@ -11,7 +11,7 @@ namespace WitiCalculator
         public WITI_LSH_EngineeringCalculation() { }
 
         public static string WITI_LSH_ExpMethod(string WITI_LSH_Iv_fristNumber, string WITI_Iv_secondNumber)
-        {         
+        {
             double WITI_LSH_lv_result = WITI_KSM_Api.WITI_KSM_Convert_ToDouble(WITI_LSH_Iv_fristNumber) * WITI_KSM_Api.WITI_KSM_Convert_ToDouble(WITI_KSM_Api.WITI_KSM_Pow(WITI_KSM_Api.WITI_KSM_Convert_ToString(10), WITI_Iv_secondNumber));
             return WITI_KSM_Api.WITI_KSM_Convert_ToString(WITI_LSH_lv_result);
         }
