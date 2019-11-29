@@ -241,7 +241,7 @@ namespace WitiCalculator
         {
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
             Standard standardView = new Standard();
-            Programmer programmerView = new Programmer();
+            Engineering engineeringView = new Engineering();
             switch (item.Name)
             {
                 case "WITI_LSH_StandardMenuButton":
@@ -250,12 +250,12 @@ namespace WitiCalculator
                     this.Close();
                     break;
                 case "WITI_LSH_MenuItemEngin":
-                    // this는 Engineering이므로 필요없음
+                    this.Hide();
+                    engineeringView.ShowDialog();
+                    this.Close();
                     break;
                 case "WITI_LSH_programmerMenuButton":
-                    this.Hide();
-                    programmerView.ShowDialog();
-                    this.Close();
+                    //this는 programmer이므로 필요 없음
                     break;
             }
 

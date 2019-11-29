@@ -679,18 +679,21 @@
             this.WITI_LSH_StandardMenuButton.Name = "WITI_LSH_StandardMenuButton";
             this.WITI_LSH_StandardMenuButton.Size = new System.Drawing.Size(51, 24);
             this.WITI_LSH_StandardMenuButton.Text = "표준";
+            this.WITI_LSH_StandardMenuButton.Click += new System.EventHandler(this.WITI_KSM_ToolStripMenuItem_Click);
             // 
             // WITI_LSH_EngineeringMenuButton
             // 
             this.WITI_LSH_EngineeringMenuButton.Name = "WITI_LSH_EngineeringMenuButton";
             this.WITI_LSH_EngineeringMenuButton.Size = new System.Drawing.Size(66, 24);
             this.WITI_LSH_EngineeringMenuButton.Text = "공학용";
+            this.WITI_LSH_EngineeringMenuButton.Click += new System.EventHandler(this.WITI_KSM_ToolStripMenuItem_Click);
             // 
             // WITI_LSH_programmerMenuButton
             // 
             this.WITI_LSH_programmerMenuButton.Name = "WITI_LSH_programmerMenuButton";
             this.WITI_LSH_programmerMenuButton.Size = new System.Drawing.Size(96, 24);
             this.WITI_LSH_programmerMenuButton.Text = "프로그래머";
+            this.WITI_LSH_programmerMenuButton.Click += new System.EventHandler(this.WITI_KSM_ToolStripMenuItem_Click);
             // 
             // Programmer
             // 
